@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:38:26 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/06/26 22:19:36 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/06/27 21:28:29 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,12 @@ typedef pthread_mutex_t	t_mtx;
 typedef struct timeval	t_tv;
 
 typedef struct s_philo {
-	int			id;
-	pthread_t	tid;
-	int			state;
-	int			num_ate;
-	int			time_from_eat;
+	int				id;
+	pthread_t		tid;
+	int				state;
+	int				num_ate;
+	t_tv			time_prev_meal;
+	struct s_stat	*info;
 }	t_philo;
 
 typedef struct s_stat {
@@ -66,7 +67,7 @@ typedef struct s_stat {
 	int		time_to_sleep;
 	int		num_eat;
 	t_tv	time_sim_start;
-	t_philo	*info_philo;
+	t_philo	*philo;
 	t_mtx	*fork;
 	char	*msg[5];
 }	t_stat;

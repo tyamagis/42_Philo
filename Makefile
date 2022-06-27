@@ -5,7 +5,8 @@ SRCS		= \
 	$(NAME).c \
 	philo_utils.c \
 	philo_inits.c \
-	philo_simulation.c
+	philo_simulation.c \
+	philosophy.c
 
 OBJS		= $(SRCS:.c=.o)
 

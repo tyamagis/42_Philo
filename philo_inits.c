@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 18:13:59 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/06/26 22:19:26 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/06/27 21:30:36 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,24 @@ static t_philo	*init_philos(t_stat *stat)
 	int		i;
 	t_philo	*philo;
 
-	stat->info_philo = (t_philo *)malloc(sizeof(t_philo) * stat->num_philo);
-	if (stat->info_philo == NULL)
+	stat->philo = (t_philo *)malloc(sizeof(t_philo) * stat->num_philo);
+	if (stat->philo == NULL)
 		return (NULL);
 	i = 0;
 	while (i < stat->num_philo)
 	{
-		philo = &(stat->info_philo[i]);
+		philo = &(stat->philo[i]);
 		philo->id = i;
 		philo->state = WAITING;
 		philo->num_ate = 0;
-		philo->time_from_eat = 0;
+		philo->time_prev_meal.tv_sec = 0;
+		philo->time_prev_meal.tv_usec = 0;
+		philo->info = stat;
 		if (pthread_create(&(philo->tid), NULL, &philosophy, philo) != 0)
 			return (NULL);
-		printf("init_philos() create philo[%d]\n", i);
 		i++;
 	}
-	return (stat->info_philo);
+	return (stat->philo);
 }
 
 static bool	init_mtx_forks(t_stat *stat)
@@ -88,8 +89,8 @@ bool	inits(t_stat *stat, int ac, char **av)
 {
 	if (init_stats(stat, ac, av) == false || valid_stats(stat, ac) == false)
 		return (false);
-	stat->info_philo = init_philos(stat);
-	if (stat->info_philo == NULL)
+	stat->philo = init_philos(stat);
+	if (stat->philo == NULL)
 		return (false);
 	return (true);
 }
