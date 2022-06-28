@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 18:13:59 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/06/27 21:30:36 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/06/28 21:26:03 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ static t_philo	*init_philos(t_stat *stat)
 		philo->id = i;
 		philo->state = WAITING;
 		philo->num_ate = 0;
-		philo->time_prev_meal.tv_sec = 0;
-		philo->time_prev_meal.tv_usec = 0;
+		philo->time_prev_meal = 0;
 		philo->info = stat;
 		if (pthread_create(&(philo->tid), NULL, &philosophy, philo) != 0)
 			return (NULL);

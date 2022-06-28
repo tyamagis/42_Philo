@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:38:26 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/06/27 21:28:29 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/06/28 23:53:35 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ enum e_stat {TAKE, EAT, SLEEP, THINK, STARVE, WAITING};
 # define MSG_THINK " is thinking"
 # define MSG_STARVE " died"
 
+# define TURN_IN 100
+
 // usage string
 # define USAGE "\n\
 Usage\t./philo [0] [1] [2] [3] [option]\n\
@@ -56,7 +58,7 @@ typedef struct s_philo {
 	pthread_t		tid;
 	int				state;
 	int				num_ate;
-	t_tv			time_prev_meal;
+	unsigned long	time_prev_meal;
 	struct s_stat	*info;
 }	t_philo;
 

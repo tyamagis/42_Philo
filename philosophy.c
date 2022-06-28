@@ -6,36 +6,71 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 21:33:45 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/06/27 21:59:56 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/06/29 00:01:34 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+// TODO: considering too many calls ? measure actual time later.
+
 #include "philo.h"
+
+bool	is_fork_available()
+{
+	
+}
+
+bool	is_starve()
+{
+	
+}
+
+bool	is_time_elapsed(t_stat *stat, t_philo *p_stat, enum state)
+{
+	unsigned long	time_elapsed;
+
+	if (state == STARVE)
+		return (false);
+	time_elapsed = current_timestamp(stat) - p_stat->time_prev_meal;
+	if (state == EAT)
+	{
+		if (time_elapsed < stat->time_to_eat)
+			return (false);
+	}
+	else if (state == SLEEP)
+	{
+		if (time_elapsed < (stat->time_to_eat + stat->time_to_sleep))
+			return (false);
+	}
+	return (true);
+}
+
+void	next_state(t_philo *p_stat)
+{
+	
+}
+
+void	eat_to_live(t_philo *p_stat)
+{
+	if (is_fork_available())
+	{
+		// fork lock
+		// and roll...
+	}
+}
 
 void	*philosophy(void *arg)
 {
 	t_philo	*p_stat;
 
 	p_stat = (t_philo *)arg;
-	while (42)
+	while (p_stat->state != STARVE)
 	{
-		if (p_stat->state == THINK && is_fork_available())
-		{
-			p_stat->state = EAT;
-			p_stat->time_prev_meal = current_timestamp();
-		}
-		else if (p_stat->stte == EAT && is_time_elapsed(EAT))
-		{
-			p_stat->state = SLEEP;
-		}
-		else if (p_stat->state == SLEEP && is_time_elapsed(SLEEP))
-		{
-			p_stat->state = THINK;
-		}
-		if (current_timestamp() >= p_stat->info->time_to_die)
-		{
-			p_stat->state = STARVE;
-		}
+		if (p_stat->state == THINK)
+			eat_to_live(p_stat);
+		else if (is_time_elapsed(p_stat->state)) // EAT, SLEEP, STARVE
+			next_state(p_stat);
+		else
+			usleep(TURN_IN); // TODO: adjust turn-in time usleep uses.
 	}
 	return (NULL);
 }
