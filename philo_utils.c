@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:51:30 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/06/26 21:34:05 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/07/02 22:20:59 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	philo_atoi(char *s)
 {
 	int	n;
-	int check_n;
+	int	check_n;
 
 	n = 0;
 	while (*s != '\0')
@@ -51,11 +51,12 @@ int	print_err(char *msg)
 	return (EXIT_FAILURE);
 }
 
-void	print_stats(t_stat *stat, t_tv current_time, int i, int act)
+void	print_state(t_philo *p_stat, unsigned long ts)
 {
-	unsigned long	timestamp;
+	int		id;
+	char	*msg;
 
-	timestamp = (current_time.tv_usec - stat->time_sim_start.tv_usec) / 1000;
-	timestamp += (current_time.tv_sec - stat->time_sim_start.tv_sec) * 1000;
-	printf("%lu %d %s\n", timestamp, i, stat->msg[act]);
+	id = p_stat->id + 1;
+	msg = p_stat->info->msg[p_stat->state];
+	printf("%8lu %d %s\n", ts, id, msg);
 }
