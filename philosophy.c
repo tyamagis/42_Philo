@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 21:33:45 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/06/29 00:01:34 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/07/02 19:54:05 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,6 @@ bool	is_time_elapsed(t_stat *stat, t_philo *p_stat, enum state)
 	return (true);
 }
 
-void	next_state(t_philo *p_stat)
-{
-	
-}
-
 void	eat_to_live(t_philo *p_stat)
 {
 	if (is_fork_available())
@@ -68,7 +63,7 @@ void	*philosophy(void *arg)
 		if (p_stat->state == THINK)
 			eat_to_live(p_stat);
 		else if (is_time_elapsed(p_stat->state)) // EAT, SLEEP, STARVE
-			next_state(p_stat);
+			p_stat->state++;
 		else
 			usleep(TURN_IN); // TODO: adjust turn-in time usleep uses.
 	}
