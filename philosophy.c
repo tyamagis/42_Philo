@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 21:33:45 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/07/02 19:54:05 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/07/02 19:59:10 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,6 @@ bool	is_fork_available()
 	
 }
 
-bool	is_starve()
-{
-	
-}
-
 bool	is_time_elapsed(t_stat *stat, t_philo *p_stat, enum state)
 {
 	unsigned long	time_elapsed;
@@ -31,6 +26,11 @@ bool	is_time_elapsed(t_stat *stat, t_philo *p_stat, enum state)
 	if (state == STARVE)
 		return (false);
 	time_elapsed = current_timestamp(stat) - p_stat->time_prev_meal;
+	if (time_elapsed - p_stat->time_prev_meal >= stat->time_to_die)
+	{
+		p_stat->state = STARVE;
+		return (false);
+	}
 	if (state == EAT)
 	{
 		if (time_elapsed < stat->time_to_eat)
