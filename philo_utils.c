@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:51:30 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/07/03 19:56:31 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/07/03 22:17:27 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ bool	philo_isnum(char *s)
 
 int	print_err(char *msg)
 {
-	printf(msg);
+	printf("%s", msg);
 	printf(USAGE);
 	return (EXIT_FAILURE);
 }

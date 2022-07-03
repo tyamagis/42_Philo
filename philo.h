@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:38:26 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/07/03 20:10:31 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/07/03 23:33:18 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ enum e_stat {TAKE, EAT, SLEEP, THINK, STARVE, WAITING};
 # define MSG_THINK "is thinking"
 # define MSG_STARVE "died"
 
-# define TURN_IN 10
+# define TURN_IN 30
 
 // usage string
 # define USAGE "\n\
@@ -49,6 +49,10 @@ arguments must be POSITIVE and less than or equal to the INT_MAX number.\n\
 \n\
 if [option] specified, \n\
 program will stops when all philos have eaten the specified meals.\n\n"
+
+# define DEATH_ANNOUNCE "\n\
+SOMEONE DIED or ALL PHILOSOPHERS ARE FULL.\n\
+THIS SIMULATION WILL END SOON.\n\n"
 
 typedef pthread_mutex_t	t_mtx;
 typedef struct timeval	t_tv;
@@ -76,17 +80,16 @@ typedef struct s_stat {
 
 // Prototypes
 // utils
-int		philo_atoi(char *s);
-bool	philo_isnum(char *s);
-int		print_err(char *msg);
+int				philo_atoi(char *s);
+bool			philo_isnum(char *s);
+int				print_err(char *msg);
 unsigned long	current_timestamp(t_stat *stat);
-void	print_state(t_philo *p_stat, unsigned long ts);
+void			print_state(t_philo *p_stat, unsigned long ts);
 
 // inits
-bool	inits(t_stat *stat, int ac, char **av);
+bool			inits(t_stat *stat, int ac, char **av);
 
-void	simulation(t_stat *stat);
-void	*philosophy(void *arg);
-void	destruct_sim(t_stat *stat);
+void			simulation(t_stat *stat);
+void			*philosophy(void *arg);
 
 #endif

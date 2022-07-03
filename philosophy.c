@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/27 21:33:45 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/07/03 20:21:21 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/07/04 00:12:03 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ bool	is_fork_available(t_philo *p_stat)
 
 void	put_fork(t_philo *p_stat)
 {
-	int	li;
-	int	ri;
+	int		li;
+	int		ri;
 	t_stat	*st;
 
 	li = p_stat->id;
@@ -72,6 +72,8 @@ bool	is_time_elapsed(t_philo *p_stat, unsigned long crnt)
 	time_elpsd = crnt - p_stat->time_prev_meal;
 	if (time_elpsd >= (unsigned long)st->time_to_die)
 	{
+		if (p_stat->state == EAT)
+			put_fork(p_stat);
 		p_stat->state = STARVE;
 		print_state(p_stat, crnt);
 		return (false);
@@ -108,7 +110,7 @@ void	eat_to_live(t_philo *p_stat)
 
 void	*philosophy(void *arg)
 {
-	t_philo	*p_stat;
+	t_philo			*p_stat;
 	unsigned long	crnt_time;
 
 	p_stat = (t_philo *)arg;
@@ -123,7 +125,7 @@ void	*philosophy(void *arg)
 			print_state(p_stat, crnt_time);
 		}
 		else
-			usleep(TURN_IN); // TODO: adjust turn-in time usleep uses.
+			usleep(TURN_IN);
 	}
 	return (NULL);
 }

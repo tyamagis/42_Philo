@@ -1,5 +1,6 @@
 CFLAGS		= -Wall -Wextra -Werror
 LDFLAGS		= -pthread
+SNTZ_FLAGS	= -g -fsanitize=thread
 NAME		= philo
 SRCS		= \
 	$(NAME).c \
@@ -23,3 +24,6 @@ fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
+
+sanitize: $(OBJS)
+	$(CC) $(CFLAGS) $(SNTZ_FLAGS) $(OBJS) $(LDFLAGS) -o $(NAME)
