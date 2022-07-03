@@ -6,11 +6,23 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:51:30 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/07/02 22:20:59 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/07/03 19:56:31 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+unsigned long	current_timestamp(t_stat *stat)
+{
+	unsigned long	ms;
+	t_tv			tv;
+
+	while (gettimeofday(&tv, NULL) != 0)
+		;
+	ms = (tv.tv_usec - stat->time_sim_start.tv_usec) / 1000;
+	ms += (tv.tv_sec - stat->time_sim_start.tv_sec) * 1000;
+	return (ms);
+}
 
 int	philo_atoi(char *s)
 {

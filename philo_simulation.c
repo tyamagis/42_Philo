@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/26 17:39:13 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/06/27 21:38:48 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/07/03 19:35:20 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,9 @@ bool	is_full(t_stat *stat)
 	
 void	simulation(t_stat *stat)
 {
-	struct timezone	tz;
-
-	while (gettimeofday(&(stat->time_sim_start), &tz) != 0)
+	while (gettimeofday(&(stat->time_sim_start), NULL) != 0)
 		;
-	printf("sim start.\n");
+	printf("%lu sim start.\n", current_timestamp(stat));
 	philos_begin_sim(stat);
 	while (!is_dead(stat) && (stat->num_eat == -1 || !is_full(stat)))
 		;

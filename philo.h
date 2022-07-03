@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:38:26 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/07/02 21:50:37 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/07/03 20:10:31 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@
 
 enum e_stat {TAKE, EAT, SLEEP, THINK, STARVE, WAITING};
 
-# define MSG_TAKE " has taken a fork"
-# define MSG_EAT " is eating"
-# define MSG_SLEEP " is sleeping"
-# define MSG_THINK " is thinking"
-# define MSG_STARVE " died"
+# define MSG_TAKE "has taken a fork"
+# define MSG_EAT "is eating"
+# define MSG_SLEEP "is sleeping"
+# define MSG_THINK "is thinking"
+# define MSG_STARVE "died"
 
-# define TURN_IN 100
+# define TURN_IN 10
 
 // usage string
 # define USAGE "\n\
@@ -79,6 +79,8 @@ typedef struct s_stat {
 int		philo_atoi(char *s);
 bool	philo_isnum(char *s);
 int		print_err(char *msg);
+unsigned long	current_timestamp(t_stat *stat);
+void	print_state(t_philo *p_stat, unsigned long ts);
 
 // inits
 bool	inits(t_stat *stat, int ac, char **av);
