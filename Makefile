@@ -26,4 +26,4 @@ fclean: clean
 re: fclean all
 
 sanitize: $(OBJS)
-	$(CC) $(CFLAGS) $(SNTZ_FLAGS) $(OBJS) $(LDFLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(SNTZ_FLAGS) $(OBJS) -lasan $(LDFLAGS) -o $(NAME)

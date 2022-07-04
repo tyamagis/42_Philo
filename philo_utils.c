@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:51:30 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/07/03 22:17:27 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/07/04 01:04:20 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ unsigned long	current_timestamp(t_stat *stat)
 
 	while (gettimeofday(&tv, NULL) != 0)
 		;
-	ms = (tv.tv_usec - stat->time_sim_start.tv_usec) / 1000;
-	ms += (tv.tv_sec - stat->time_sim_start.tv_sec) * 1000;
+	ms = (tv.tv_usec - stat->time_sim_start.tv_usec);
+	ms += (tv.tv_sec - stat->time_sim_start.tv_sec) * 1000000;
 	return (ms);
 }
 
@@ -70,5 +70,5 @@ void	print_state(t_philo *p_stat, unsigned long ts)
 
 	id = p_stat->id + 1;
 	msg = p_stat->info->msg[p_stat->state];
-	printf("%8lu %d %s\n", ts, id, msg);
+	printf("%8lu %d %s\n", ts / 1000, id, msg);
 }

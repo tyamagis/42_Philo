@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:19:04 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/07/04 00:41:18 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/07/04 22:42:04 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@ void	free_resources(t_stat *stat)
 	int	i;
 
 	i = 0;
+	printf("DESTROY!\n");
 	while (i < stat->num_philo)
 	{
-		pthread_mutex_destroy(&stat->fork[i]);
+		if (pthread_mutex_destroy(&stat->fork[i]) != 0)
+			printf("destroy err\n");
 		i++;
 	}
 	if (stat->philo != NULL)
@@ -36,7 +38,6 @@ void	destruct_sim(t_stat * stat)
 	stat->time_to_die = 2147483647;
 	stat->time_to_eat = 0;
 	stat->time_to_sleep = 2147483647;
-	usleep(50000);
 	while (i < stat->num_philo)
 	{
 		stat->philo[i].state = WAITING;
@@ -71,7 +72,9 @@ int	main(int ac, char **av)
 		return (print_err(ERR_STATS));
 	}
 	simulation(&stat);
+	sleep(1);
 	destruct_sim(&stat);
 	free_resources(&stat);
+	fflush(stdout);
 	return (0);
 }

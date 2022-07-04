@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 16:38:26 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/07/03 23:33:18 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/07/04 21:27:59 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,12 @@ typedef struct s_philo {
 }	t_philo;
 
 typedef struct s_stat {
+	bool	sim_end_flag;
+	int		sim_ends;
 	int		num_philo;
-	int		time_to_die;
-	int		time_to_eat;
-	int		time_to_sleep;
+	long	time_to_die;
+	long	time_to_eat;
+	long	time_to_sleep;
 	int		num_eat;
 	t_tv	time_sim_start;
 	t_philo	*philo;

@@ -6,7 +6,7 @@
 /*   By: tyamagis <tyamagis@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 18:13:59 by tyamagis          #+#    #+#             */
-/*   Updated: 2022/07/03 22:34:22 by tyamagis         ###   ########.fr       */
+/*   Updated: 2022/07/04 21:56:43 by tyamagis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ static t_philo	*init_philos(t_stat *stat)
 		philo->num_ate = 0;
 		philo->time_prev_meal = 0;
 		philo->info = stat;
-		if (pthread_create(&(philo->tid), NULL, &philosophy, philo) != 0)
+		if (pthread_create(&(philo->tid), NULL, &philosophy, philo) != 0
+		|| pthread_detach(philo->tid) != 0)
 		{
 			free(stat->philo);
 			return (NULL);
@@ -56,7 +57,7 @@ static bool	init_mtx_forks(t_stat *stat)
 {
 	int	i;
 
-	stat->fork = (t_mtx *)malloc(sizeof(t_mtx) * stat->num_philo);
+	stat->fork = (t_mtx *)malloc(sizeof(t_mtx) * stat->num_philo * 8);
 	if (stat->fork == NULL)
 		return (false);
 	i = 0;
@@ -67,17 +68,19 @@ static bool	init_mtx_forks(t_stat *stat)
 			free(stat->fork);
 			return (false);
 		}
-		i++;
+		i+=7;
 	}
 	return (true);
 }
 
 static bool	init_stats(t_stat *stat, int ac, char **av)
 {
+	stat->sim_end_flag = false;
+	stat->sim_ends = 0;
 	stat->num_philo = philo_atoi(av[1]);
-	stat->time_to_die = philo_atoi(av[2]);
-	stat->time_to_eat = philo_atoi(av[3]);
-	stat->time_to_sleep = philo_atoi(av[4]);
+	stat->time_to_die = philo_atoi(av[2]) * 1000;
+	stat->time_to_eat = philo_atoi(av[3]) * 1000;
+	stat->time_to_sleep = philo_atoi(av[4]) * 1000;
 	stat->num_eat = -1;
 	if (ac == 6)
 		stat->num_eat = philo_atoi(av[5]);
